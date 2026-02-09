@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Consultancy - Intelligent Solutions & Technical Expertise</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #141414;
+            --accent-cyan: #00fff5;
+            --accent-purple: #a855f7;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --border: #2a2a2a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .grain-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .gradient-blob {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.15;
+            z-index: 0;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .blob-1 {
+            background: var(--accent-cyan);
+            top: -200px;
+            right: -200px;
+            animation-delay: 0s;
+        }
+
+        .blob-2 {
+            background: var(--accent-purple);
+            bottom: -200px;
+            left: -200px;
+            animation-delay: 10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(50px, 50px) scale(1.1); }
+            66% { transform: translate(-50px, -50px) scale(0.9); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--border);
+            animation: slideDown 0.8s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-cyan);
+        }
+
+        .hero {
+            padding: 8rem 0 6rem;
+            animation: fadeIn 1s ease-out 0.3s both;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-tag {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(0, 255, 245, 0.1);
+            border: 1px solid rgba(0, 255, 245, 0.3);
+            border-radius: 2rem;
+            color: var(--accent-cyan);
+            font-size: 0.85rem;
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-description {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin-bottom: 3rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            color: var(--bg-primary);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(0, 255, 245, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-cyan);
+            background: rgba(0, 255, 245, 0.05);
+        }
+
+        .section {
+            padding: 6rem 0;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-tag {
+            color: var(--accent-cyan);
+            font-family: 'Space Mono', monospace;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-description {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover {
+            border-color: var(--accent-cyan);
+            transform: translateY(-5px);
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 255, 245, 0.1);
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .service-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .tag {
+            padding: 0.35rem 0.75rem;
+            background: rgba(168, 85, 247, 0.1);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 0.35rem;
+            font-size: 0.8rem;
+            color: var(--accent-purple);
+        }
+
+        .skills-section {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .skill-category h3 {
+            color: var(--accent-cyan);
+            font-family: 'Space Mono', monospace;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .skill-list li:hover {
+            color: var(--text-primary);
+            padding-left: 0.5rem;
+        }
+
+        .skill-level {
+            font-size: 0.75rem;
+            color: var(--accent-cyan);
+            font-family: 'Space Mono', monospace;
+        }
+
+        .about-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-content h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-content p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-card {
+            background: var(--bg-primary);
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            border: 1px solid var(--border);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .contact-section {
+            background: var(--bg-secondary);
+            border-radius: 2rem;
+            padding: 4rem;
+            text-align: center;
+        }
+
+        .contact-section h2 {
+            margin-bottom: 1rem;
+        }
+
+        .contact-section p {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        footer {
+            padding: 3rem 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            .hero { padding: 4rem 0 3rem; }
+            .about-section { grid-template-columns: 1fr; }
+            .services-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            .contact-section { padding: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="grain-overlay"></div>
+    <div class="gradient-blob blob-1"></div>
+    <div class="gradient-blob blob-2"></div>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">AI_CONSULTANCY</div>
+                <ul class="nav-links">
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <section class="hero">
+                <div class="hero-tag">AI & Technical Consultancy</div>
+                <h1>Transforming Ideas Into<br><span class="gradient-text">Intelligent Solutions</span></h1>
+                <p class="hero-description">
+                    Expert consultancy in AI automation, trading systems, and API integrations. 
+                    Delivering production-grade solutions that solve real-world problems.
+                </p>
+                <div class="cta-buttons">
+                    <a href="#contact" class="btn btn-primary">Start a Project</a>
+                    <a href="#services" class="btn btn-secondary">Explore Services</a>
+                </div>
+            </section>
+        </div>
+
+        <section id="services" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">// WHAT I DO</span>
+                    <h2>Services & Expertise</h2>
+                    <p class="section-description">
+                        Comprehensive technical solutions across multiple domains, from AI automation to enterprise integrations
+                    </p>
+                </div>
+
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">🤖</div>
+                        <h3>AI Automation & Integration</h3>
+                        <p>
+                            Build intelligent automation systems, chatbots, and AI-powered workflows. 
+                            Integrate cutting-edge AI models into your business processes for enhanced efficiency.
+                        </p>
+                        <div class="service-tags">
+                            <span class="tag">GPT Integration</span>
+                            <span class="tag">Automation</span>
+                            <span class="tag">Workflow Design</span>
+                        </div>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon">📊</div>
+                        <h3>Trading Systems & Automation</h3>
+                        <p>
+                            Design and develop automated trading bots, algorithmic strategies, and risk management systems. 
+                            Expert in prop trading platforms and API integrations.
+                        </p>
+                        <div class="service-tags">
+                            <span class="tag">Trading Bots</span>
+                            <span class="tag">Prop Firms</span>
+                            <span class="tag">Risk Management</span>
+                        </div>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon">🔌</div>
+                        <h3>API Development & Integration</h3>
+                        <p>
+                            Custom API development and third-party integrations including Amadeus GDS, 
+                            payment gateways, and enterprise systems. Scalable, secure, production-ready.
+                        </p>
+                        <div class="service-tags">
+                            <span class="tag">REST APIs</span>
+                            <span class="tag">GDS Integration</span>
+                            <span class="tag">Payment Systems</span>
+                        </div>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon">💻</div>
+                        <h3>Full-Stack Development</h3>
+                        <p>
+                            End-to-end web and application development using modern tech stacks. 
+                            From concept to deployment, building scalable solutions that perform.
+                        </p>
+                        <div class="service-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">React</span>
+                            <span class="tag">Node.js</span>
+                        </div>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon">🎮</div>
+                        <h3>Discord Bots & Automation</h3>
+                        <p>
+                            Custom Discord bots for community management, moderation, gaming, and business automation. 
+                            Feature-rich solutions with advanced functionality.
+                        </p>
+                        <div class="service-tags">
+                            <span class="tag">Discord.js</span>
+                            <span class="tag">Automation</span>
+                            <span class="tag">Community Tools</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" style="background: var(--bg-secondary); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">// MY APPROACH</span>
+                    <h2>How I Work</h2>
+                    <p class="section-description">
+                        A systematic methodology that transforms challenges into intelligent solutions
+                    </p>
+                </div>
+
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">🔍</div>
+                        <h3>Identifying Opportunities</h3>
+                        <p>
+                            Every business has untapped potential waiting to be discovered. I analyze your workflows, 
+                            processes, and pain points to identify where AI and automation can deliver the most value. 
+                            By understanding your unique challenges, I pinpoint opportunities that others might overlook—whether 
+                            it's streamlining repetitive tasks, enhancing data analysis, or creating entirely new revenue streams 
+                            through intelligent systems.
+                        </p>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon">💡</div>
+                        <h3>Fostering Innovation</h3>
+                        <p>
+                            Innovation isn't just about using the latest technology—it's about applying it creatively to solve 
+                            real problems. I bring fresh perspectives and cutting-edge AI tools to your business, exploring 
+                            unconventional solutions that give you a competitive edge. From integrating large language models 
+                            into customer service workflows to developing custom algorithms for complex decision-making, 
+                            I help you stay ahead of the curve.
+                        </p>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon">⚡</div>
+                        <h3>Implementing Automation</h3>
+                        <p>
+                            Strategy without execution is just theory. I build production-ready automation systems that work 
+                            reliably in real-world conditions. Whether it's developing trading bots that execute strategies 
+                            24/7, creating intelligent chatbots that handle customer inquiries, or automating data pipelines 
+                            that save hundreds of hours monthly—I deliver solutions that are robust, scalable, and immediately 
+                            impactful to your bottom line.
+                        </p>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon">📊</div>
+                        <h3>Evaluating Solutions</h3>
+                        <p>
+                            Implementation is just the beginning. I establish clear metrics to measure success and continuously 
+                            monitor performance to ensure your AI systems deliver promised results. Through rigorous testing, 
+                            A/B comparisons, and data-driven analysis, I refine and optimize solutions over time. This iterative 
+                            approach ensures that your investment in automation generates sustained value and adapts as your 
+                            business evolves.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="section skills-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">// TECHNICAL STACK</span>
+                    <h2>Skills & Technologies</h2>
+                </div>
+
+                <div class="skills-container">
+                    <div class="skill-category">
+                        <h3>Programming Languages</h3>
+                        <ul class="skill-list">
+                            <li>Python <span class="skill-level">Expert</span></li>
+                            <li>JavaScript/Node.js <span class="skill-level">Expert</span></li>
+                            <li>Lua (Roblox) <span class="skill-level">Advanced</span></li>
+                            <li>HTML/CSS <span class="skill-level">Expert</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3>Trading & Finance</h3>
+                        <ul class="skill-list">
+                            <li>Algorithmic Trading <span class="skill-level">Advanced</span></li>
+                            <li>Trading Bot Development <span class="skill-level">Expert</span></li>
+                            <li>Risk Management <span class="skill-level">Advanced</span></li>
+                            <li>Prop Trading Platforms <span class="skill-level">Advanced</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3>Integration & APIs</h3>
+                        <ul class="skill-list">
+                            <li>REST API Development <span class="skill-level">Expert</span></li>
+                            <li>Amadeus GDS <span class="skill-level">Advanced</span></li>
+                            <li>Discord Bot Development <span class="skill-level">Expert</span></li>
+                            <li>Payment Gateways <span class="skill-level">Advanced</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="section">
+            <div class="container">
+                <div class="about-section" style="grid-template-columns: 1fr; max-width: 800px; margin: 0 auto;">
+                    <div class="about-content">
+                        <span class="section-tag">// ABOUT ME</span>
+                        <h3>Building The Future, One Project at a Time</h3>
+                        <p>
+                            With hands-on experience across trading automation, API development, and AI integration, 
+                            I help businesses leverage technology to solve complex problems and automate workflows.
+                        </p>
+                        <p>
+                            From successfully passing prop trading evaluations to building travel agency systems with 
+                            GDS integrations, I bring a unique blend of technical expertise and real-world business 
+                            understanding to every project.
+                        </p>
+                        <p>
+                            Whether you need intelligent automation, custom software solutions, or API integrations, 
+                            I deliver production-grade results that drive measurable impact.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="section">
+            <div class="container">
+                <div class="contact-section">
+                    <span class="section-tag">// GET IN TOUCH</span>
+                    <h2>Ready to Build Something Amazing?</h2>
+                    <p>
+                        Whether you need AI automation, trading systems, custom development, or API integrations, 
+                        let's discuss how I can help bring your vision to life.
+                    </p>
+                    <div class="cta-buttons" style="justify-content: center;">
+                        <a href="/cdn-cgi/l/email-protection#dfbcb0b1abbebcab9fbeb6bcb0b1acaab3abbeb1bca6f1bcb0b2" class="btn btn-primary">Send a Message</a>
+                        <a href="#" class="btn btn-secondary">Schedule a Call</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 AI Consultancy. Building intelligent systems for tomorrow.</p>
+        </div>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.service-card, .skill-category, .stat-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+   
